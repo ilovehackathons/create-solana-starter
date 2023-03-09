@@ -8,6 +8,9 @@ solana-cli 1.14.16 (src:ab6f3bda; feat:3488713414)
 
 $ anchor --version
 anchor-cli 0.26.0
+
+$ solana-test-validator --version
+solana-test-validator 1.14.16 (src:ab6f3bda; feat:3488713414)
 ```
 
 ## Usage

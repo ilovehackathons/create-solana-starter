@@ -108,7 +108,9 @@ const PACKAGE_JSON = {
     "lint:fix": 'prettier */*.js "*/**/*{.js,.ts}" -w',
     lint: 'prettier */*.js "*/**/*{.js,.ts}" --check',
     verify:
-      "echo 'Did you start solana-test-validator?' && solana airdrop 100000 -u localhost -k wallet.json && anchor deploy && anchor run test",
+      "echo 'Did you start solana-test-validator?' && solana airdrop 100000 -u localhost -k wallet.json && anchor deploy && npm run idl:upgrade && anchor run test",
+    "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
+    "idl:upgrade": `anchor idl upgrade  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
   },
   dependencies: {
     "@coral-xyz/anchor": "^0.26.0",
@@ -155,7 +157,7 @@ await readline
   .createInterface({ input, output })
   .question(
     chalk.greenBright("Run ") +
-      chalk.blueBright("solana-test-validator") +
+      chalk.blueBright(`cd ${appName} && solana-test-validator`) +
       chalk.greenBright(" in another terminal and press Enter to continue...")
   );
 
@@ -171,6 +173,9 @@ console.log(
 console.log(chalk.greenBright("Running 'anchor deploy'..."));
 console.log(execSync("anchor deploy").toString());
 
+console.log(chalk.greenBright("Running 'npm run idl:init'..."));
+console.log(execSync("npm run idl:init").toString());
+
 console.log(chalk.greenBright("Running 'anchor run test'..."));
 console.log(execSync("anchor run test").toString());
 
@@ -178,3 +183,4 @@ console.log(execSync("anchor run test").toString());
 // console.log(solanaTestValidator.kill());
 
 console.log(chalk.greenBright("Finished."));
+process.exit(0);
