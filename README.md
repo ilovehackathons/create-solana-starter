@@ -3,14 +3,20 @@
 ## Requirements
 
 ```sh
-$ solana --version
-solana-cli 1.14.16 (src:ab6f3bda; feat:3488713414)
-
 $ anchor --version
 anchor-cli 0.26.0
 
+$ solana --version
+solana-cli 1.14.16 (src:ab6f3bda; feat:3488713414)
+
 $ solana-test-validator --version
 solana-test-validator 1.14.16 (src:ab6f3bda; feat:3488713414)
+
+$ rustc --version
+rustc 1.65.0 (897e37553 2022-11-02)
+
+$ node --version
+v18.12.1
 ```
 
 ## Usage
