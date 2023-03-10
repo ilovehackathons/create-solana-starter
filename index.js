@@ -113,7 +113,7 @@ const PACKAGE_JSON = {
     "idl:upgrade": `anchor idl upgrade  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
   },
   dependencies: {
-    "@coral-xyz/anchor": "^0.26.0",
+    "@coral-xyz/anchor": "^0.27.0",
   },
   devDependencies: {
     chai: "^4.3.4",

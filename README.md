@@ -4,7 +4,7 @@
 
 ```sh
 $ anchor --version
-anchor-cli 0.26.0
+anchor-cli 0.27.0
 
 $ solana --version
 solana-cli 1.14.16 (src:ab6f3bda; feat:3488713414)
