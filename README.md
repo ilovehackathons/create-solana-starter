@@ -21,7 +21,7 @@ v18.12.1
 
 ## Usage
 
-`npx create-solana-starter my-solana-app`
+`npx create-solana-starter@latest my-solana-app`
 
 ## npm package registry
 
