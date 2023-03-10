@@ -21,7 +21,10 @@ v18.12.1
 
 ## Usage
 
-`npx create-solana-starter@latest my-solana-app`
+1. Run `npx create-solana-starter@latest my-solana-app` to initialize the project.
+2. Run `cd my-solana-app && npm start` to deploy it to localhost.
+3. Make changes to `lib.rs` and watch the console.
+4. Press `Ctrl+C` to stop the tasks once you're done.
 
 ## npm package registry
 
