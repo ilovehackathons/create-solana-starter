@@ -145,7 +145,7 @@ const PACKAGE_JSON = {
     "lint:fix": 'prettier */*.js "*/**/*{.js,.ts}" -w',
     lint: 'prettier */*.js "*/**/*{.js,.ts}" --check',
     start:
-      '(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; npm run refresh && echo "\\nPress Ctrl+C to stop the validator and file watcher." && node watcher.js) & solana-test-validator >/dev/null',
+      "(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; npm run refresh && node watcher.js) & solana-test-validator >/dev/null",
     refresh:
       "anchor build && anchor deploy && npm run idl:init; npm run idl:upgrade && anchor run test",
     "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
@@ -177,20 +177,24 @@ const WATCHER_JS = `
 import { watch } from "fs";
 import { join } from "path";
 import { execSync } from "child_process";
+import chalk from "chalk";
 
-console.log("Watching for lib.rs changes...");
+console.log(chalk.greenBright("Watching lib.rs for changes... (Press Ctrl+C to stop the validator and file watcher.)"));
 
 watch(join("programs", "${appName}", "src"), null, () => {
-  console.log(
+  console.log(chalk.greenBright(
     "\\nA change in lib.rs detected. Rebuilding, redeploying and reuploading the IDL..."
-  );
+  ));
   console.log(execSync("npm run refresh").toString());
-  console.log("Press Ctrl+C to stop the validator and file watcher.");
+  console.log(chalk.greenBright("Watching lib.rs for changes... (Press Ctrl+C to stop the validator and file watcher.)"));
 });
 `.trim();
 
 console.log(chalk.greenBright("Writing watcher.js..."));
 writeFileSync("watcher.js", WATCHER_JS);
+
+console.log(chalk.greenBright("Running 'npm i chalk'..."));
+console.log(execSync("npm i chalk").toString());
 
 console.log(
   chalk.greenBright(`Almost done! Run`),
