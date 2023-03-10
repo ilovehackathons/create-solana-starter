@@ -80,6 +80,16 @@ console.log(chalk.greenBright(`Running 'anchor build'...`));
 console.log(execSync("anchor build").toString());
 
 const snakeCasedAppName = appName.replace(/\-/g, "_");
+const pascalCasedAppName = [...appName]
+  .reverse()
+  .reduce((prev, cur) =>
+    cur === "-"
+      ? [...prev.slice(0, -1), [...prev].reverse()[0].toUpperCase()]
+      : [...prev, cur]
+  )
+  .reverse()
+  .map((v, i) => (i === 0 ? v.toUpperCase() : v))
+  .join("");
 
 console.log(
   chalk.greenBright(
@@ -106,6 +116,7 @@ wallet = "wallet.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+verify = "yarn run mocha -t 1000000 verify.js"
 
 [test.validator]
 bind_address = "127.0.0.1"
@@ -125,6 +136,7 @@ declare_id!("${programId}");
 pub mod ${snakeCasedAppName} {
     use super::*;
 
+    // This method and the associated account only exist for the verify script to be able to do its job.
     pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
         Ok(())
     }
@@ -147,7 +159,7 @@ const PACKAGE_JSON = {
     start:
       "(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; npm run refresh && node watcher.js) & solana-test-validator >/dev/null",
     refresh:
-      "anchor build && anchor deploy && npm run idl:init; npm run idl:upgrade && anchor run test",
+      "anchor build && anchor deploy && npm run idl:init; npm run idl:upgrade && anchor run verify",
     "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
     "idl:upgrade": `anchor idl upgrade  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
   },
@@ -192,6 +204,20 @@ watch(join("programs", "${appName}", "src"), null, () => {
 
 console.log(chalk.greenBright("Writing watcher.js..."));
 writeFileSync("watcher.js", WATCHER_JS);
+
+console.log(chalk.greenBright("Generating verify.js..."));
+const VERIFY_JS = `
+import * as anchor from "@coral-xyz/anchor";
+
+anchor.setProvider(anchor.AnchorProvider.env());
+
+it("Passes verification!", async () => {
+  await anchor.workspace.${pascalCasedAppName}.methods.initialize().rpc();
+});
+`.trim();
+
+console.log(chalk.greenBright("Writing verify.js..."));
+writeFileSync("verify.js", VERIFY_JS);
 
 console.log(chalk.greenBright("Running 'npm i chalk'..."));
 console.log(execSync("npm i chalk").toString());
