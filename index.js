@@ -5,8 +5,8 @@ import { chdir } from "process";
 import chalk from "chalk";
 import { writeFileSync } from "fs";
 import path from "path";
-import * as readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
+// import * as readline from "node:readline/promises";
+// import { stdin as input, stdout as output } from "node:process";
 
 function displayHelpAndExit(isError) {
   console.log(
@@ -132,8 +132,8 @@ const PACKAGE_JSON = {
   scripts: {
     "lint:fix": 'prettier */*.js "*/**/*{.js,.ts}" -w',
     lint: 'prettier */*.js "*/**/*{.js,.ts}" --check',
-    verify:
-      "echo 'Did you start solana-test-validator?' && solana airdrop 100000 -u localhost -k wallet.json && anchor deploy && npm run idl:upgrade && anchor run test",
+    start:
+      '(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; anchor build && anchor deploy && npm run idl:init; npm run idl:upgrade && anchor run test && echo "\\nPress Ctrl+C to stop the validator.") & solana-test-validator >/dev/null',
     "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
     "idl:upgrade": `anchor idl upgrade  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
   },
@@ -178,34 +178,41 @@ console.log(execSync("anchor test").toString());
 // );
 // await new Promise((resolve) => setTimeout(resolve, 5000));
 
-await readline
-  .createInterface({ input, output })
-  .question(
-    chalk.greenBright("Run ") +
-      chalk.blueBright(`cd ${appName} && solana-test-validator`) +
-      chalk.greenBright(" in another terminal and press Enter to continue...")
-  );
-
 console.log(
-  chalk.greenBright(
-    "\nRunning 'solana airdrop 100000 -u localhost -k wallet.json'..."
-  )
+  chalk.greenBright(`Almost done! Run`),
+  chalk.blueBright(`cd ${appName} && npm start`),
+  chalk.greenBright("to finish.")
 );
-console.log(
-  execSync("solana airdrop 100000 -u localhost -k wallet.json").toString()
-);
+// console.log(execSync("npm start").toString());
 
-console.log(chalk.greenBright("Running 'anchor deploy'..."));
-console.log(execSync("anchor deploy").toString());
+// await readline
+//   .createInterface({ input, output })
+//   .question(
+//     chalk.greenBright("Run ") +
+//       chalk.blueBright(`cd ${appName} && solana-test-validator`) +
+//       chalk.greenBright(" in another terminal and press Enter to continue...")
+//   );
 
-console.log(chalk.greenBright("Running 'npm run idl:init'..."));
-console.log(execSync("npm run idl:init").toString());
+// console.log(
+//   chalk.greenBright(
+//     "\nRunning 'solana airdrop 100000 -u localhost -k wallet.json'..."
+//   )
+// );
+// console.log(
+//   execSync("solana airdrop 100000 -u localhost -k wallet.json").toString()
+// );
 
-console.log(chalk.greenBright("Running 'anchor run test'..."));
-console.log(execSync("anchor run test").toString());
+// console.log(chalk.greenBright("Running 'anchor deploy'..."));
+// console.log(execSync("anchor deploy").toString());
+
+// console.log(chalk.greenBright("Running 'npm run idl:upgrade'..."));
+// console.log(execSync("npm run idl:upgrade").toString());
+
+// console.log(chalk.greenBright("Running 'anchor run test'..."));
+// console.log(execSync("anchor run test").toString());
 
 // console.log(chalk.greenBright("Killing solana-test-validator..."));
 // console.log(solanaTestValidator.kill());
 
-console.log(chalk.greenBright("Finished."));
+// console.log(chalk.greenBright("Finished."));
 process.exit(0);

@@ -34,3 +34,7 @@ mkdir create-solana-starter
 git init
 npm init -y
 ```
+
+## TODO
+
+- Support Seahorse
