@@ -8,21 +8,46 @@ import path from "path";
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 
+function displayHelpAndExit(isError) {
+  console.log(
+    `
+Usage:
+
+${chalk.greenBright(
+  "npx create-solana-starter <app-name> [options]"
+)}        create a new app
+
+${chalk.greenBright(
+  "npx create-solana-starter -h"
+)}                          output usage information
+${chalk.greenBright("                          --help")}
+
+Options:
+  --template <template-name>            `.trim() +
+      //       `choose between ${chalk.greenBright(
+      //         "anchor"
+      //       )} (default) and ${chalk.greenBright("seahorse")}
+      // `
+      `        only ${chalk.greenBright("anchor")} supported right now
+`.trimEnd()
+  );
+  process.exit(+!!isError);
+}
+
+if (!process.argv[2] || process.argv[2].startsWith("-")) {
+  displayHelpAndExit();
+}
+
 const appName = process.argv[2];
 
-if (!appName) {
-  console.error("Please specify the app name:");
-  console.log(
-    `  ${chalk.cyan("create-solana-starter")} ${chalk.green("<app-name>")}`
-  );
-  console.log();
-  console.log("For example:");
-  console.log(
-    `  ${chalk.cyan("npx create-solana-starter")} ${chalk.green(
-      "my-solana-app"
-    )}`
-  );
-  process.exit(1);
+const parameterName = process.argv[3];
+const parameterValue = process.argv[4];
+
+if (
+  parameterName &&
+  (parameterName !== "--template" || parameterValue !== "anchor")
+) {
+  displayHelpAndExit();
 }
 
 console.log(chalk.greenBright(`Running 'anchor init ${appName}'...`));
