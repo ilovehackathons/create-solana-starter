@@ -7,6 +7,7 @@ import { writeFileSync } from "fs";
 import path from "path";
 // import * as readline from "node:readline/promises";
 // import { stdin as input, stdout as output } from "node:process";
+import pkg from "./package.json" assert { type: "json" };
 
 function displayHelpAndExit(isError) {
   console.log(
@@ -22,6 +23,11 @@ ${chalk.greenBright(
 )}                          output usage information
 ${chalk.greenBright("                          --help")}
 
+${chalk.greenBright(
+  "npx create-solana-starter -V"
+)}                          show the version number
+${chalk.greenBright("                          --version")}
+
 Options:
   --template <template-name>            `.trim() +
       //       `choose between ${chalk.greenBright(
@@ -32,6 +38,11 @@ Options:
 `.trimEnd()
   );
   process.exit(+!!isError);
+}
+
+if (process.argv[2] === "-V" || process.argv[2] === "--version") {
+  console.log(pkg.version);
+  process.exit(0);
 }
 
 if (!process.argv[2] || process.argv[2].startsWith("-")) {
