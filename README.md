@@ -38,11 +38,12 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 - Verbose output so that you can actually understand what's going on under the hood.
   - `create-solana-starter` output is [bright green](https://github.com/chalk/chalk#readme), while that of the [commands it calls](https://nodejs.org/dist/latest-v18.x/docs/api/child_process.html#child_processexecsynccommand-options) is (generally) white.
 - There's a [Next.js frontend](https://github.com/ilovehackathons/solana-dapp-next-localhost) in `app` that connects to our test validator.
+- The code in `lib.rs` lets you store an arbitrary signed integer on-chain.
 
 ### Planned
 
-- Add some features (e.g. a counter that can be incremented/decremented) to the Solana program.
-- Integrate these features in the frontend.
+- Interact with the Solana program (storing and retrieving an arbitrary number) in the frontend.
+- Add tests for the number storage and retrieval feature.
 - Choose between different templates (e.g. Anchor or [Seahorse](https://seahorse-lang.org)).
 - Real-time CLI output.
   - Right now, there's only output after the respective command (e.g. `anchor build`) has completed. That may take a minute or two.

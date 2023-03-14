@@ -140,10 +140,47 @@ pub mod ${snakeCasedAppName} {
     pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
         Ok(())
     }
+
+    pub fn init_data(ctx: Context<InitData>, data: i64) -> Result<()> {
+        ctx.accounts.my_account.data = data;
+        Ok(())
+    }
+
+    pub fn set_data(ctx: Context<SetData>, data: i64) -> Result<()> {
+        ctx.accounts.my_account.data = data;
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
 pub struct Initialize {}
+
+#[account]
+#[derive(Default)]
+pub struct MyAccount {
+    data: i64,
+}
+
+#[derive(Accounts)]
+pub struct InitData<'info> {
+    #[account(
+        init,
+        seeds = [b""],
+        bump,
+        payer = payer,
+        space = 8 + 8,
+    )]
+    pub my_account: Account<'info, MyAccount>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct SetData<'info> {
+    #[account(mut)]
+    pub my_account: Account<'info, MyAccount>,
+}
 `.trimStart();
 console.log(LIB_RS);
 
@@ -159,7 +196,7 @@ const PACKAGE_JSON = {
     start:
       "(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; npm run refresh && node watcher.js) & solana-test-validator >/dev/null",
     refresh:
-      "anchor build && anchor deploy && npm run idl:init; npm run idl:upgrade && anchor run verify",
+      "anchor build && anchor deploy && (npm run idl:init; npm run idl:upgrade) && anchor run verify",
     "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
     "idl:upgrade": `anchor idl upgrade  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
   },
