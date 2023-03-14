@@ -37,7 +37,7 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 - An [Anchor script](https://www.anchor-lang.com/docs/manifest#scripts-required-for-testing) that verifies that there's actually a valid program at the program ID.
 - Verbose output so that you can actually understand what's going on under the hood.
   - `create-solana-starter` output is [bright green](https://github.com/chalk/chalk#readme), while that of the [commands it calls](https://nodejs.org/dist/latest-v18.x/docs/api/child_process.html#child_processexecsynccommand-options) is (generally) white.
-- There's a [Next.js frontend](https://github.com/ilovehackathons/solana-dapp-next-localhost) in `app` that connects to our test validator.
+- There's a [Next.js frontend](https://github.com/ilovehackathons/dapp-scaffold-localhost) in `app` that connects to our test validator.
 - The code in `lib.rs` lets you store an arbitrary signed integer on-chain.
 
 ### Planned

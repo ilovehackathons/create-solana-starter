@@ -261,12 +261,12 @@ console.log(execSync("npm i chalk").toString());
 
 console.log(
   chalk.greenBright(
-    "Running 'git clone https://github.com/ilovehackathons/solana-dapp-next-localhost app'..."
+    "Running 'git clone https://github.com/ilovehackathons/dapp-scaffold-localhost app'..."
   )
 );
 console.log(
   execSync(
-    "git clone https://github.com/ilovehackathons/solana-dapp-next-localhost app"
+    "git clone https://github.com/ilovehackathons/dapp-scaffold-localhost app"
   ).toString()
 );
 
@@ -278,8 +278,8 @@ console.log(execSync("npm i").toString());
 
 console.log(
   chalk.greenBright("Almost done!\n\nTo start the Solana backend, run:\n\n"),
-  chalk.blueBright(`cd ${appName} && npm start\n\n`),
-  chalk.greenBright("To start the Next.js frontend, run:\n\n"),
+  chalk.blueBright(`cd ${appName} && npm start`),
+  chalk.greenBright("\n\nTo start the Next.js frontend, run:\n\n"),
   chalk.blueBright(`cd ${appName}/app && npm run dev`)
 );
 
