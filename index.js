@@ -3,7 +3,7 @@
 import { /* exec, */ execSync } from "child_process";
 import { chdir } from "process";
 import chalk from "chalk";
-import { writeFileSync } from "fs";
+import { writeFileSync, rm } from "fs";
 import path from "path";
 // import * as readline from "node:readline/promises";
 // import { stdin as input, stdout as output } from "node:process";
@@ -195,6 +195,8 @@ const PACKAGE_JSON = {
     lint: 'prettier */*.js "*/**/*{.js,.ts}" --check',
     start:
       "(sleep 2 && solana airdrop 100000 -u localhost -k wallet.json; npm run refresh && node watcher.js) & solana-test-validator >/dev/null",
+    next:
+      `cd app && NEXT_PUBLIC_PROGRAM_ID=${programId} npm run dev`,
     refresh:
       "anchor build && anchor deploy && (npm run idl:init; npm run idl:upgrade) && anchor run verify",
     "idl:init": `anchor idl init  -f target/idl/${snakeCasedAppName}.json \`solana address -k target/deploy/${snakeCasedAppName}-keypair.json\``,
@@ -273,6 +275,11 @@ console.log(
 console.log(chalk.greenBright(`Stepping into ${appName}/app...`));
 chdir("app");
 
+console.log(chalk.greenBright(`Running 'rm -fr .git'...`));
+rm('.git', { recursive: true, force: true },(e)=>{
+  console.log(chalk.greenBright(`Error: ${e?.message}`))
+})
+
 console.log(chalk.greenBright("Running 'npm i'..."));
 console.log(execSync("npm i").toString());
 
@@ -280,7 +287,7 @@ console.log(
   chalk.greenBright("Almost done!\n\nTo start the Solana backend, run:\n\n"),
   chalk.blueBright(`cd ${appName} && npm start`),
   chalk.greenBright("\n\nTo start the Next.js frontend, run:\n\n"),
-  chalk.blueBright(`cd ${appName}/app && npm run dev`)
+  chalk.blueBright(`cd ${appName} && npm run next`)
 );
 
 process.exit(0);

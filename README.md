@@ -17,9 +17,10 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 ## Usage
 
 1. Run `npx create-solana-starter@latest my-solana-app` to initialize the project.
-2. Run `cd my-solana-app && npm start` to deploy it to localhost.
-3. Make changes to `lib.rs` and watch the console.
-4. Press `Ctrl+C` to stop the tasks once you're done.
+2. Start the Solana backend with `cd my-solana-app && npm start`.
+3. Start the Next.js frontend with `cd my-solana-app && npm run next`.
+4. Make changes to `lib.rs` and watch the console.
+5. Press `Ctrl+C` to stop the tasks once you're done.
 
 ## Features
 
@@ -39,10 +40,10 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
   - `create-solana-starter` output is [bright green](https://github.com/chalk/chalk#readme), while that of the [commands it calls](https://nodejs.org/dist/latest-v18.x/docs/api/child_process.html#child_processexecsynccommand-options) is (generally) white.
 - There's a [Next.js frontend](https://github.com/ilovehackathons/dapp-scaffold-localhost) in `app` that connects to our test validator.
 - The code in `lib.rs` lets you store an arbitrary signed integer on-chain.
+- Interact with the Solana program (storing and retrieving an arbitrary number) in the frontend.
 
 ### Planned
 
-- Interact with the Solana program (storing and retrieving an arbitrary number) in the frontend.
 - Add tests for the number storage and retrieval feature.
 - Choose between different templates (e.g. Anchor or [Seahorse](https://seahorse-lang.org)).
 - Real-time CLI output.
