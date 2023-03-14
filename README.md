@@ -24,23 +24,26 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 
 ### Working
 
-- Initializes an Anchor project with `anchor init`.
-- Generates a shareable wallet for development purposes (**do not use on mainnet!!!**).
-- Generates Anchor source code with a valid program ID.
+- Run via [`npx`](https://docs.npmjs.com/cli/v9/commands/npx). No explicit installation required.
+- Initializes an [Anchor project](https://www.anchor-lang.com/docs/hello-world) with `anchor init`.
+- Generates a shareable [wallet](https://docs.solana.com/getstarted/local#create-a-file-system-wallet) for development purposes (**do not use on mainnet!!!**) with `solana-keygen`.
+- Generates Anchor source code with a [valid program ID](https://www.anchor-lang.com/docs/high-level-overview).
 - An npm script to (re)build and init/upgrade the on-chain program/IDL anytime.
-  - The IDL (ABI) is needed by frontends.
-- A `lib.rs` file watcher that runs the above-mentioned script automatically on changes.
-- A second npm script to do lots of heavy lifting (start the test validator & file watcher, give you some SOL so that you can actually deploy, etc.)
-- Two more npm scripts for long-to-type Anchor commands.
-- A script that verifies that there's actually a valid program at the program ID.
+  - An [interface definition (IDL)](https://www.anchor-lang.com/docs/cli#idl) is needed by frontends.
+- A [`lib.rs`](https://docs.solana.com/getstarted/rust#create-your-first-solana-program) file watcher that runs the above-mentioned script automatically [on changes](https://nodejs.org/dist/latest-v18.x/docs/api/fs.html#fswatchfilename-options-listener).
+- A second npm script to do lots of heavy lifting (start the [test validator](https://docs.solana.com/developing/test-validator) & file watcher, [give you some SOL](https://docs.solana.com/getstarted/local#airdrop-sol-tokens-to-your-wallet) so that you can actually deploy, etc.)
+- Two more [npm scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts) for long-to-type Anchor commands.
+- An [Anchor script](https://www.anchor-lang.com/docs/manifest#scripts-required-for-testing) that verifies that there's actually a valid program at the program ID.
 - Verbose output so that you can actually understand what's going on under the hood.
-  - create-solana-starter output is green, while that of the commands it calls is (generally) white.
+  - `create-solana-starter` output is [bright green](https://github.com/chalk/chalk#readme), while that of the [commands it calls](https://nodejs.org/dist/latest-v18.x/docs/api/child_process.html#child_processexecsynccommand-options) is (generally) white.
 
 ### Planned
 
-- Choose between different templates (e.g. Anchor or Seahorse).
+- Choose between different templates (e.g. Anchor or [Seahorse](https://seahorse-lang.org)).
 - A frontend that actually works with localhost.
-  - There's a Next.js scaffold, but it only works with devnet/testnet/mainnet.
+  - There's a [Next.js scaffold](https://github.com/solana-developers/solana-dapp-next), but it only works with [devnet/testnet/mainnet](https://solanacookbook.com/references/local-development.html#connecting-to-environments).
+- Real-time CLI output.
+  - Right now, there's only output after the respective command (e.g. `anchor build`) has completed. That may take a minute or two.
 
 ## Links
 
