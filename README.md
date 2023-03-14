@@ -20,13 +20,30 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 3. Make changes to `lib.rs` and watch the console.
 4. Press `Ctrl+C` to stop the tasks once you're done.
 
+## Features
+
+### Working
+
+- Initializes an Anchor project with `anchor init`.
+- Generates a shareable wallet for development purposes (**do not use on mainnet!!!**).
+- Generates Anchor source code with a valid program ID.
+- An npm script to (re)build and init/upgrade the on-chain program/IDL anytime.
+  - The IDL (ABI) is needed by frontends.
+- A `lib.rs` file watcher that runs the above-mentioned script automatically on changes.
+- A second npm script to do lots of heavy lifting (start the test validator & file watcher, give you some SOL so that you can actually deploy, etc.)
+- Two more npm scripts for long-to-type Anchor commands.
+- A script that verifies that there's actually a valid program at the program ID.
+- Verbose output so that you can actually understand what's going on under the hood.
+  - create-solana-starter output is green, while that of the commands it calls is (generally) white.
+
+### Planned
+
+- Choose between different templates (e.g. Anchor or Seahorse).
+- A frontend that actually works with localhost.
+  - There's a Next.js scaffold, but it only works with devnet/testnet/mainnet.
+
 ## Links
 
 - [npm package registry](https://www.npmjs.com/package/create-solana-starter)
 - [Twitter](https://twitter.com/createsolana)
 - [Presentation](https://pitch.com/public/7a885e05-eea7-4755-93c9-f7c77d132a97)
-
-## TODO
-
-- Support Seahorse
-- Add a frontend (w/ localhost support)
