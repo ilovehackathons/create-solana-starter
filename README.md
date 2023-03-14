@@ -12,6 +12,7 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
   - Do not use Homebrew, because it won't install `solana-test-validator 1.14.16 (src:ab6f3bda; feat:3488713414)`.
 - [anchor-cli 0.27.0](https://www.anchor-lang.com/docs/installation#build-from-source-for-other-operating-systems-without-avm)
   - There seems to be an issue with `avm`; it's better if you install directly with `cargo`.
+- [git version 2.37.1](https://git-scm.com/downloads)
 
 ## Usage
 
@@ -36,12 +37,13 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 - An [Anchor script](https://www.anchor-lang.com/docs/manifest#scripts-required-for-testing) that verifies that there's actually a valid program at the program ID.
 - Verbose output so that you can actually understand what's going on under the hood.
   - `create-solana-starter` output is [bright green](https://github.com/chalk/chalk#readme), while that of the [commands it calls](https://nodejs.org/dist/latest-v18.x/docs/api/child_process.html#child_processexecsynccommand-options) is (generally) white.
+- There's a [Next.js frontend](https://github.com/ilovehackathons/solana-dapp-next-localhost) in `app` that connects to our test validator.
 
 ### Planned
 
+- Add some features (e.g. a counter that can be incremented/decremented) to the Solana program.
+- Integrate these features in the frontend.
 - Choose between different templates (e.g. Anchor or [Seahorse](https://seahorse-lang.org)).
-- A frontend that actually works with localhost.
-  - There's a [Next.js scaffold](https://github.com/solana-developers/solana-dapp-next), but it only works with [devnet/testnet/mainnet](https://solanacookbook.com/references/local-development.html#connecting-to-environments).
 - Real-time CLI output.
   - Right now, there's only output after the respective command (e.g. `anchor build`) has completed. That may take a minute or two.
 

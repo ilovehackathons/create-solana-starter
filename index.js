@@ -223,9 +223,27 @@ console.log(chalk.greenBright("Running 'npm i chalk'..."));
 console.log(execSync("npm i chalk").toString());
 
 console.log(
-  chalk.greenBright(`Almost done! Run`),
-  chalk.blueBright(`cd ${appName} && npm start`),
-  chalk.greenBright("to finish.")
+  chalk.greenBright(
+    "Running 'git clone https://github.com/ilovehackathons/solana-dapp-next-localhost app'..."
+  )
+);
+console.log(
+  execSync(
+    "git clone https://github.com/ilovehackathons/solana-dapp-next-localhost app"
+  ).toString()
+);
+
+console.log(chalk.greenBright(`Stepping into ${appName}/app...`));
+chdir("app");
+
+console.log(chalk.greenBright("Running 'npm i'..."));
+console.log(execSync("npm i").toString());
+
+console.log(
+  chalk.greenBright("Almost done!\n\nTo start the Solana backend, run:\n\n"),
+  chalk.blueBright(`cd ${appName} && npm start\n\n`),
+  chalk.greenBright("To start the Next.js frontend, run:\n\n"),
+  chalk.blueBright(`cd ${appName}/app && npm run dev`)
 );
 
 process.exit(0);
