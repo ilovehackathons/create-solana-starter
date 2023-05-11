@@ -53,4 +53,5 @@ create-solana-starter is a command-line tool that initializes a new [Solana](htt
 
 - [npm package registry](https://www.npmjs.com/package/create-solana-starter)
 - [Twitter](https://twitter.com/createsolana)
-- [Presentation](https://pitch.com/public/7a885e05-eea7-4755-93c9-f7c77d132a97)
+- [Slide deck](https://pitch.com/public/7a885e05-eea7-4755-93c9-f7c77d132a97)
+- [Video](https://www.loom.com/share/7f01f482ff7349ee98747f0360eec798)
